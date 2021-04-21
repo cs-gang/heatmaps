@@ -11,6 +11,7 @@ Jinja2 = "^2.11.3"
 loguru = "^0.5.3"
 motor = "^2.4.0"
 docker-compose = "^1.29.1"
+aiohttp = "^3.7.4"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.12.1"
