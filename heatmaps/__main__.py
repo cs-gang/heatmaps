@@ -9,13 +9,11 @@ load_dotenv(find_dotenv())
 
 
 HOST = os.environ.get("HOST")
-PORT = os.environ.get("PORT")
+PORT = int(os.environ.get("PORT", 8000))
 
-if PORT:
-    PORT = int(PORT)
 
 # if debug env var is not set, assume it is True
-DEBUG = False if os.environ.get("DEBUG") else True
+DEBUG = True if os.environ.get("DEBUG") else False
 # if DEBUG is false, don't display access_logs either
 ACCESS_LOG = DEBUG
 

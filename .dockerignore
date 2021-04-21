@@ -1,0 +1,9 @@
+Dockerfile
+docker-compose.yml
+*.egg-info/
+LICENSE
+README.md
+.venv
+__pycache__
+.gitignore
+.vscode

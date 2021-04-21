@@ -1,0 +1,29 @@
+version: "3.6"
+
+services:
+    mongo:
+      image: mongo:latest
+      ports:
+        - 27017:27017
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: heatmaps-dev
+        MONGO_INITDB_ROOT_PASSWORD: pass
+        MONGO_INITDB_DATABASE: heatmaps-db
+      volumes:
+        - ./mongo-volume:/data/db
+
+    site:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      command: ["python", "-m", "heatmaps"]
+      ports:
+        - "127.0.0.1:8000:8000"
+      depends_on:
+        - mongo
+      tty: true
+      volumes:
+        - .:/app:ro
+      environment:
+        - DATABASE_URL=mongodb://heatmaps-dev:pass@mongo:27017
+        - DEBUG=true
