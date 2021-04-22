@@ -130,3 +130,6 @@ dmypy.json
 
 # VSCode stuff
 .vscode
+
+# Volume data - I don't know if I should've let it be made here...
+mongo-volume
