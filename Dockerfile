@@ -20,5 +20,5 @@ RUN poetry install --no-dev
 WORKDIR /app
 COPY . .
 
-# Start the server with uvicorn
+# Start the server
 CMD ["python", "-m", "heatmaps"]

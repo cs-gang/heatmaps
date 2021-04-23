@@ -20,6 +20,8 @@ app = Sanic("heatmaps")
 async def before_server_start(app: Sanic, loop: BaseEventLoop) -> None:
     app.ctx.db = AsyncIOMotorClient(os.environ.get("DATABASE_URL"))["heatmaps-db"]
     logger.info("Database client made")
+    # create capped collection to store the data in case it isn't made already
+    await app.ctx.db.create_collection("api_responses", capped=True, size=1000)
     app.ctx.http_session = ClientSession(loop=loop)
     logger.info("HTTP ClientSession made")
     # TODO: start data collection routine here. look into: sanic background tasks.
