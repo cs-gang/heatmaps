@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/cs-gang/heatmaps#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2",
+    "node-sass": "^5.0.0",
     "terser": "^5.6.1"
   }
 }
