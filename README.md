@@ -13,9 +13,9 @@ Run `npm install` to install the development dependencies.
 ### Working with Javascript and CSS files
 
 #### CSS
-The css files are compiled using SASS. When you have finished writing in the `main.sass` file, run `npm run css-build` to compile it into a css file in the same directory.
+The css files are compiled using Sass. When you have finished writing in the `main.sass` file, run `npm run css-build` to compile it into a css file in the same directory.
 
-Alternatively, if you prefer to see the changes as you are writing to the file, you can run `npm run css` to automatically compile the `main.sass` file whenever you make changes.
+Alternatively, if you prefer to see the changes as you are writing to the file, you can run `npm run css` to automatically compile the `main.sass` file whenever you make changes as long as the process is running in the terminal.
 
 #### Javascript
 This project uses ReactJs. If you use JSX, make sure to compile it using `npm run parse-jsx --jsfilepre=JSfilename.js`.
