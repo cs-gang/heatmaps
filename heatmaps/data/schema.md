@@ -6,14 +6,15 @@ All documents that go in the `api_responses` collection must be of the following
 ```json
 {
     "api": "covid",
+    "time": datetime[utc],
     "data": [
         {
             "country": string,
+            "population": int,
             "statistics": [
                 {
                     "stat": string,
-                    "raw_count": int,
-                    "normalized": float
+                    "count": int,
                 }
             ]
         }

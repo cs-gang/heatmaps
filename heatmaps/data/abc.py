@@ -2,6 +2,8 @@ from abc import ABC, abstractmethod
 from numbers import Number
 from typing import Any
 
+from motor.motor_asyncio import AsyncIOMotorCollection
+from pydantic import BaseModel
 from sanic import Sanic
 
 
@@ -16,6 +18,10 @@ class AbstractAPIClient(ABC):
 
     def __init__(self, app: Sanic) -> None:
         self.app = app
+
+    @property
+    def collection(self) -> AsyncIOMotorCollection:
+        return self.app.ctx.db["api_responses"]
 
     @abstractmethod
     async def fetch_data(self) -> Any:
@@ -35,11 +41,10 @@ class AbstractAPIClient(ABC):
         pass
 
     @abstractmethod
-    def normalize(self, value: Number) -> float:
+    def normalize(self, value: Number, total: Number) -> float:
         """
         Normalize the value of some data set to a 10-point scale.
-        To be used iteratively, for data for all countries in the `AbstractAPIClient.parse_data`
-        method.
+        Normalized values need not be stored; but be calculated when needed.
         """
         pass
 
@@ -53,6 +58,18 @@ class AbstractAPIClient(ABC):
     @abstractmethod
     async def collect_data(self) -> None:
         """
-        Entrypoint function; only this function is expected to be used externally.
+        Entrypoint function; only this function is expected to be used externally (probably in a background task).
+        """
+        pass
+
+    @abstractmethod
+    async def retrieve_data(self) -> BaseModel:
+        """
+        Function to retrieve stored data from the database.
+        This function should retrieve the latest document for the corresponding API
+        by default.
+
+        Returns:
+            The validated BaseModel for the corresponding API.
         """
         pass
