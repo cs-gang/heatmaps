@@ -6,8 +6,8 @@
   "scripts": {
     "css-build": "node-sass --omit-source-map-url ./heatmaps/static/css/main.sass ./heatmaps/static/css/main.css",
     "css": "npm run css-build -- --watch",
-    "minimize-js": "npx terser -c -m -o ./heatmaps/templates/$npm_config_jsfilepre -- ./heatmaps/templates/$npm_config_jsfilepost",
-    "parse-jsx": "npx babel ./heatmaps/templates/$npm_config_jsfilepre --out-file ./heatmaps/templates/$npm_config_jsfilepost --presets react-app/prod"
+    "minify-js": "npx terser -c -m -o ./heatmaps/templates/$npm_config_jsfilepost -- ./heatmaps/templates/$npm_config_jsfilepre",
+    "parse-jsx": "npx babel ./heatmaps/templates/$npm_config_jsfilepre --out-dir . --presets react-app/prod"
   },
   "repository": {
     "type": "git",
