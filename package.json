@@ -1,0 +1,21 @@
+{
+  "name": "heatmaps",
+  "version": "1.0.0",
+  "description": "## Contributing",
+  "main": "",
+  "scripts": {
+    "css-build": "node-sass --omit-source-map-url ./heatmaps/static/css/main.sass ./heatmaps/static/css/main.css",
+    "css-watch": "npm run css-build -- --watch",
+    "start": "npm run css-watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cs-gang/heatmaps.git"
+  },
+  "author": "cs-gang",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/cs-gang/heatmaps/issues"
+  },
+  "homepage": "https://github.com/cs-gang/heatmaps#readme"
+}
