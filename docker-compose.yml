@@ -5,6 +5,8 @@ services:
       image: mongo:latest
       ports:
         - 27017:27017
+      logging:
+        driver: none
       environment:
         MONGO_INITDB_ROOT_USERNAME: heatmaps-dev
         MONGO_INITDB_ROOT_PASSWORD: pass
