@@ -39,14 +39,14 @@ class Covid(abc.AbstractAPIClient):
 
     async def fetch_data(self) -> Optional[list]:  # the endpoint returns a list
         async with self.app.ctx.http_session.get(
-            Covid.API_URL + "/v3/covid-19/countries"
+            Covid.API_URL + "v3/covid-19/countries"
         ) as resp:
             if resp.status == 200:
-                logger.info("<COVID> Fetched COVID data")
+                logger.trace("<COVID> Fetched COVID data")
                 return await resp.json()
             else:
                 logger.warning(
-                    "<COVID> API returned non-200 status code, could not fetch data"
+                    f"<COVID> API returned non-200 status code ({resp.status}), could not fetch data"
                 )
 
     def parse_data(self, data: list) -> dict:
@@ -74,7 +74,7 @@ class Covid(abc.AbstractAPIClient):
 
     async def insert_data(self, data: dict) -> None:
         await self.collection.insert_one(data)
-        logger.info("<COVID> Data inserted")
+        logger.info("<COVID> Data inserted to database")
 
     def normalize(self, value: int, total: int) -> float:
         # TODO: think this through, and write tests
@@ -90,6 +90,12 @@ class Covid(abc.AbstractAPIClient):
         logger.info("<COVID> Data collection completed")
 
     async def retrieve_data(self) -> Optional[CovidDataDocument]:
+        """
+        Entrypoint function to retrieve stored data on-demand.
+
+        Returns:
+            CovidDataDocument: A Pydantic validated model
+        """
         # as `api_responses` is a capped collection (refer: https://docs.mongodb.com/manual/core/capped-collections/)
         # we do not need to check the insertion datetime to retrieve the latest document
         # which is usually the document we always need
