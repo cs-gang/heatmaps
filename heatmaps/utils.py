@@ -44,9 +44,12 @@ class Loop:
                 await self._func()
             except Exception as e:
                 logger.error(f"<TASK LOOP> Exception: {e}")
+                # wait before trying again
+                await asyncio.sleep(self.interval)
+
                 if self._exc_count > 5:
                     logger.warning(
-                        f"<TASK LOOP> Broke the loop as it errored the last 5 runs"
+                        f"<TASK LOOP> Broke the loop {self._func.__name__} as it errored the last 5 runs"
                     )
                     break
                 self._exc_count += 1
@@ -54,11 +57,11 @@ class Loop:
                 self._exc_count = 0
                 await asyncio.sleep(self.interval)
 
-    def start(self) -> asyncio.Task[None]:
+    def start(self) -> asyncio.Task:
         """
         Starts the underlying loop.
         """
-        logger.info("<TASK LOOP> Starting Task {self._func.__name__}")
+        logger.info(f"<TASK LOOP> Starting Task {self._func.__name__}")
         return self.loop.create_task(self._loop())
 
 
@@ -67,15 +70,18 @@ def loop(
     seconds: int = 0,
     minutes: int = 0,
     hours: int = 0,
-    loop: asyncio.AbstractEventLoop = None,
+    event_loop: asyncio.AbstractEventLoop = None,
 ) -> Callable:
     """
     Decorator to register a coroutine as a loop.
     """
 
     def decorator(func: Callable) -> Loop:
-        if not loop:
-            loop = asyncio.get_event_loop()
-        return Loop(func, loop=loop, seconds=seconds, minutes=minutes, hours=hours)
+        nonlocal event_loop
+        if not event_loop:
+            event_loop = asyncio.get_event_loop()
+        return Loop(
+            func, loop=event_loop, seconds=seconds, minutes=minutes, hours=hours
+        )
 
     return decorator
