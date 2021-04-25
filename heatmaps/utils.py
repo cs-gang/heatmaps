@@ -17,12 +17,22 @@ class Loop:
     """Helper class used for background task loops."""
 
     def __init__(
-        self, func: Callable, *, seconds: int, minutes: int = 0, hours: int = 0
+        self,
+        func: Callable,
+        *,
+        loop: asyncio.AbstractEventLoop,
+        seconds: int = 0,
+        minutes: int = 0,
+        hours: int = 0,
     ) -> None:
         self._func = func
+        self.loop = loop
         self.interval = seconds
         self.interval += minutes * 60
         self.interval += hours * 3600
+
+        if self.interval == 0:
+            raise ValueError("Task loop duration should not be zero.")
 
         self._exc_count = (
             0
@@ -44,20 +54,28 @@ class Loop:
                 self._exc_count = 0
                 await asyncio.sleep(self.interval)
 
-    async def start(self) -> None:
+    def start(self) -> asyncio.Task[None]:
         """
         Starts the underlying loop.
         """
         logger.info("<TASK LOOP> Starting Task {self._func.__name__}")
-        await self._loop()
+        return self.loop.create_task(self._loop())
 
 
-def loop(*, seconds: int, minutes: int = 0, hours: int = 0):
+def loop(
+    *,
+    seconds: int = 0,
+    minutes: int = 0,
+    hours: int = 0,
+    loop: asyncio.AbstractEventLoop = None,
+) -> Callable:
     """
     Decorator to register a coroutine as a loop.
     """
 
-    def decorator(func: Callable):
-        return Loop(func, seconds=seconds, minutes=minutes, hours=hours)
+    def decorator(func: Callable) -> Loop:
+        if not loop:
+            loop = asyncio.get_event_loop()
+        return Loop(func, loop=loop, seconds=seconds, minutes=minutes, hours=hours)
 
     return decorator
