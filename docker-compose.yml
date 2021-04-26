@@ -6,7 +6,7 @@ services:
       ports:
         - 27017:27017
       logging:
-        driver: none
+        driver: "none"
       environment:
         MONGO_INITDB_ROOT_USERNAME: heatmaps-dev
         MONGO_INITDB_ROOT_PASSWORD: pass
@@ -20,7 +20,7 @@ services:
         dockerfile: Dockerfile
       command: ["python", "-m", "heatmaps"]
       ports:
-        - "127.0.0.1:8000:8000"
+        - 8000:8000
       depends_on:
         - mongo
       tty: true

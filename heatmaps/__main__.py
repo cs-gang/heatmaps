@@ -8,7 +8,7 @@ from heatmaps.server import app
 load_dotenv(find_dotenv())
 
 
-HOST = os.environ.get("HOST")
+HOST = os.environ.get("HOST", "0.0.0.0")
 PORT = int(os.environ.get("PORT", 8000))
 
 
@@ -17,5 +17,8 @@ DEBUG = True if os.environ.get("DEBUG") else False
 # if DEBUG is false, don't display access_logs either
 ACCESS_LOG = DEBUG
 
+# import index file so the code there is run
+# and the route is registered
+from heatmaps import index
 
 app.run(host=HOST, port=PORT, debug=DEBUG, access_log=ACCESS_LOG)
