@@ -28,6 +28,9 @@ async def retrieve_client_data(app: Sanic, client_name: str) -> Optional[BaseMod
     Arguments:
         client: The name of the Client whose data needs to be retrieved.
     """
-    client: AbstractAPIClient = ALL_CLIENTS[client_name.lower()](app)
+    try:
+        client: AbstractAPIClient = ALL_CLIENTS[client_name.lower()](app)
+    except (KeyError, AttributeError) as e:
+        raise ValueError(f"Requested API client {client_name} not found") from e
 
     return await client.retrieve_data()

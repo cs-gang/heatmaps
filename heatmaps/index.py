@@ -1,7 +1,10 @@
 """Index page route handling."""
-from sanic.request import Request
-from sanic.response import html, json, HTTPResponse
+import json as js
 
+from sanic.request import Request
+from sanic.response import html, HTTPResponse
+
+from heatmaps.data import retrieve_client_data
 from heatmaps.server import app
 from heatmaps.utils import render_page
 
@@ -15,17 +18,12 @@ async def index(request: Request) -> HTTPResponse:
         "heatmap"
     )  # if the key doesn't exist, it means the user just got to the page
 
-    # TODO: create function to retrieve heatmap data from db
+    heatmap_data = (await retrieve_client_data(app, topic)).dict()
+    heatmap_data.pop("time")
 
     # output = await render_page(app.ctx.env, file="index.html", heatmap=topic)
     # return html(output)
 
-    return json(
-        {
-            "topic": topic,
-            "heatmap_data": {
-                "hi": "i didn't finish making this yet",
-                "but": "it will come in the next commit",
-            },
-        }
-    )
+    # THIS IS TEST CODE
+    response_string = f"<html><body>{js.dumps(heatmap_data, indent=4)}</body></html>"
+    return html(response_string)
