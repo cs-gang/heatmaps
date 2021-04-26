@@ -96,9 +96,6 @@ class Covid(abc.AbstractAPIClient):
         Returns:
             CovidDataDocument: A Pydantic validated model
         """
-        # as `api_responses` is a capped collection (refer: https://docs.mongodb.com/manual/core/capped-collections/)
-        # we do not need to check the insertion datetime to retrieve the latest document
-        # which is usually the document we always need
         data = await self.collection.find_one({"api": "covid"})
 
         if data is None:
