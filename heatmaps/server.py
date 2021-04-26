@@ -9,11 +9,9 @@ from loguru import logger
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.errors import CollectionInvalid
 from sanic import Sanic
-from sanic.request import Request
-from sanic.response import html, HTTPResponse
 
 from heatmaps import data
-from heatmaps.utils import render_page, Loop
+from heatmaps.utils import Loop
 
 load_dotenv(find_dotenv())
 
@@ -51,17 +49,11 @@ async def start_data_collection(app: Sanic, loop: AbstractEventLoop) -> None:
     except CollectionInvalid:
         pass
     # start the registered task loops
-    Loop(collect_data, loop=loop, minutes=1).start()
+    Loop(collect_data, loop=loop, minutes=1).start()  # TODO: increase this
     logger.info("Background task started")
 
 
 @app.listener("before_server_stop")
-async def close_db(app: Sanic, loop: AbstractEventLoop) -> None:
+async def close_http_session(app: Sanic, loop: AbstractEventLoop) -> None:
     await app.ctx.http_session.close()
     logger.info("Heatmaps shut down")
-
-
-@app.route("/")
-async def index(request: Request) -> HTTPResponse:
-    output = await render_page(app.ctx.env, file="index.html")
-    return html(output)
