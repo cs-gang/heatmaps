@@ -5,6 +5,14 @@ function initMap() {
     center: { lat: -34.397, lng: 150.644 },
     zoom: 2,
     minZoom: 2,
-    maxZoom: 4
+    maxZoom: 3,
+    mapTypeControl: false,
+    streetViewControl: false,
+    zoomControlOptions: {
+      position: google.maps.ControlPosition.BOTTOM_CENTER
+    },
+    fullscreenControlOptions: {
+      position: google.maps.ControlPosition.BOTTOM_CENTER
+    }
   });
 }

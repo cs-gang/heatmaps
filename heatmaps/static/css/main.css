@@ -1,11 +1,4 @@
-#map-holder {
+#map {
   position: relative;
   height: 100%;
   width: 100%; }
-
-#map {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  height: 85%;
-  width: 70%; }
