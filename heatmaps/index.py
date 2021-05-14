@@ -2,7 +2,7 @@
 import json as js
 
 from sanic.request import Request
-from sanic.response import html, HTTPResponse
+from sanic.response import html, json, HTTPResponse
 
 from heatmaps.data import retrieve_client_data
 from heatmaps.server import app
@@ -17,6 +17,14 @@ async def index(request: Request) -> HTTPResponse:
     topic = query_args.get(
         "heatmap"
     )  # if the key doesn't exist, it means the user just got to the page
+
+    if not topic:  # TODO: change this
+        return json(
+            {
+                "hi bro": "you didn't specify an API bro",
+                "try:": "domain.com/?heatmap=covid",
+            }
+        )
 
     heatmap_data = (await retrieve_client_data(app, topic)).dict()
     heatmap_data.pop("time")

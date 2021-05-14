@@ -49,7 +49,7 @@ async def start_data_collection(app: Sanic, loop: AbstractEventLoop) -> None:
     except CollectionInvalid:
         pass
     # start the registered task loops
-    Loop(collect_data, loop=loop, minutes=1).start()  # TODO: increase this
+    Loop(collect_data, loop=loop, minutes=10).start()  # TODO: increase this
     logger.info("Background task started")
 
 
