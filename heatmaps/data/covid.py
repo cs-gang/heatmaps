@@ -73,7 +73,7 @@ class Covid(abc.AbstractAPIClient):
         return final
 
     async def insert_data(self, data: dict) -> None:
-        await self.collection.insert_one(data)
+        await self.collection.replace_one({"api": "covid"}, data, upsert=True)
         logger.info("<COVID> Data inserted to database")
 
     def normalize(self, value: int, total: int) -> float:

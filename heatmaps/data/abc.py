@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from numbers import Number
-from typing import Any
+from typing import Any, Mapping, Optional, Union
 
 from motor.motor_asyncio import AsyncIOMotorCollection
 from pydantic import BaseModel
@@ -63,11 +63,17 @@ class AbstractAPIClient(ABC):
         pass
 
     @abstractmethod
-    async def retrieve_data(self) -> BaseModel:
+    async def retrieve_data(self, projection: Optional[Mapping] = None) -> BaseModel:
         """
         Function to retrieve stored data from the database.
         This function should retrieve the latest document for the corresponding API
         by default.
+
+        Arguments:
+            projection: A projection to be used in the db query.
+                A projection essentially limits the data retrieved from a document.
+                This argument can be used in case a single API client is storing multiple
+                plottable data points.
 
         Returns:
             The validated BaseModel for the corresponding API.
