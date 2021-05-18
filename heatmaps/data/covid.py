@@ -1,6 +1,6 @@
 """"Classes and models for handling COVID data from the `disease.sh` API."""
 from datetime import datetime
-from typing import List, Optional
+from typing import List, Literal, Mapping, Optional, Union
 
 from loguru import logger
 from pydantic import BaseModel
@@ -103,3 +103,33 @@ class Covid(abc.AbstractAPIClient):
             return
 
         return CovidDataDocument.parse_obj(data)
+
+
+StatisticType = Union[
+    Literal["cases"],
+    Literal["todayCases"],
+    Literal["deaths"],
+    Literal["todayDeaths"],
+    Literal["recovered"],
+    Literal["tests"],
+]
+
+
+def filter_by_stat(data: CovidDataDocument, stat: StatisticType) -> List[Mapping]:
+    """
+    Filters the entire COVID data stored in the database
+    to leave just the relevant statistic.
+    """
+    out = []
+
+    for country in data.data:
+        new_country = {"country": country.country, "population": country.population}
+
+        for statistic_dict in country.statistics:
+            if statistic_dict.stat == stat:
+                new_country["statistics"] = statistic_dict
+                break
+
+        out.append(new_country)
+
+    return out
