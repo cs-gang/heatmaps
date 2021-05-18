@@ -6,7 +6,8 @@ from sanic.response import html, json, HTTPResponse
 
 from heatmaps.data import retrieve_client_data
 from heatmaps.server import app
-from heatmaps.utils import render_page
+
+# from heatmaps.utils import render_page
 
 
 @app.get("/")

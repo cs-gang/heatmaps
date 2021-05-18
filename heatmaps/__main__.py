@@ -5,6 +5,11 @@ from dotenv import find_dotenv, load_dotenv
 
 from heatmaps.server import app
 
+# import index file so the code there is run
+# and the route is registered
+from heatmaps import index  # noqa: F401
+
+
 load_dotenv(find_dotenv())
 
 
@@ -16,9 +21,5 @@ PORT = int(os.environ.get("PORT", 8000))
 DEBUG = True if os.environ.get("DEBUG") else False
 # if DEBUG is false, don't display access_logs either
 ACCESS_LOG = DEBUG
-
-# import index file so the code there is run
-# and the route is registered
-from heatmaps import index
 
 app.run(host=HOST, port=PORT, debug=DEBUG, access_log=ACCESS_LOG)

@@ -12,7 +12,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    
+
     env:
       # make sure poetry doesn't create a venv
       POETRY_VIRTUALENVS_CREATE: false
@@ -29,7 +29,7 @@ jobs:
         pip install flake8 pytest poetry
         poetry install
     - name: Lint with flake8
-      run: "flake8 --format='::error file=%(path)s,line=%(row)d,col=%(col)d::[flake8] %(code)s: %(text)s'"
+      run: "flake8"
     - name: Test with pytest
       run: |
         pytest

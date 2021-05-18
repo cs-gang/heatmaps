@@ -1,5 +1,4 @@
 """Module containing all API interaction, data collection and normalization methods."""
-from abc import ABCMeta
 from typing import Mapping, Optional, Type
 
 from sanic import Sanic

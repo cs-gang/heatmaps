@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from numbers import Number
-from typing import Any, Mapping, Optional, Union
+from typing import Any, Mapping, Optional
 
 from motor.motor_asyncio import AsyncIOMotorCollection
 from pydantic import BaseModel
@@ -78,7 +78,8 @@ class AbstractAPIClient(ABC):
         Returns:
             The validated BaseModel for the corresponding API.
 
-        NOTE: as `api_responses` is a capped collection (refer: https://docs.mongodb.com/manual/core/capped-collections/)
+        NOTE: as `api_responses` is a capped collection
+              (refer: https://docs.mongodb.com/manual/core/capped-collections/)
               we do not need to check the insertion datetime to retrieve the
               latest document which is usually the document we always need
         """
