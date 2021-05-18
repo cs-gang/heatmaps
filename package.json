@@ -6,8 +6,7 @@
   "scripts": {
     "css-build": "node-sass --omit-source-map-url ./heatmaps/static/css/main.sass ./heatmaps/static/css/main.css",
     "css": "npm run css-build -- --watch",
-    "minify-js": "npx terser -c -m -o ./heatmaps/templates/$npm_config_jsfilepost -- ./heatmaps/templates/$npm_config_jsfilepre",
-    "parse-jsx": "npx babel ./heatmaps/templates/$npm_config_jsfilepre --out-dir . --presets react-app/prod"
+    "minify-js": "npx terser -c -m -o ./heatmaps/templates/$npm_config_jsfilepost -- ./heatmaps/templates/$npm_config_jsfilepre"
   },
   "repository": {
     "type": "git",
@@ -20,9 +19,7 @@
   },
   "homepage": "https://github.com/cs-gang/heatmaps#readme",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-react-app": "^3.1.2",
-    "node-sass": "^5.0.0",
-    "terser": "^5.6.1"
+    "node-sass": "^6.0.0",
+    "terser": "^5.7.0"
   }
 }
