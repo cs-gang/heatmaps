@@ -9,3 +9,12 @@ repos:
     rev: 19.3b0
     hooks:
     -   id: black
+-   repo: local
+    hooks:
+    -   id: flake8
+        name: Flake8
+        description: run flake8 on the local environment
+        entry: poetry run flake8
+        language: system
+        types: [python]
+        require_serial: true
