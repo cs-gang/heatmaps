@@ -1,18 +1,17 @@
-let map;
+google.charts.load('current', {
+  'packages':['geochart'],
+  'mapsApiKey': '{{ key }}'
+});
+google.charts.setOnLoadCallback(drawRegionsMap);
 
-function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 2,
-    minZoom: 2,
-    maxZoom: 3,
-    mapTypeControl: false,
-    streetViewControl: false,
-    zoomControlOptions: {
-      position: google.maps.ControlPosition.BOTTOM_CENTER
-    },
-    fullscreenControlOptions: {
-      position: google.maps.ControlPosition.BOTTOM_CENTER
-    }
-  });
+function drawRegionsMap() {
+  var data = google.visualization.arrayToDataTable([
+    ['Country', 'Value'],
+  ]);
+
+  var options = {};
+
+  var chart = new google.visualization.GeoChart(document.getElementById('map'));
+
+  chart.draw(data, options);
 }
