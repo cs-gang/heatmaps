@@ -4,7 +4,7 @@
   "description": "## Contributing",
   "main": "",
   "scripts": {
-    "css-build": "node-sass --omit-source-map-url ./heatmaps/static/css/main.sass ./heatmaps/static/css/main.css",
+    "css-build": "node-sass --omit-source-map-url ./heatmaps/static/css/$npm_config_in ./heatmaps/static/css/$npm_config_out",
     "css": "npm run css-build -- --watch",
     "minify-js": "npx terser -c -m -o ./heatmaps/templates/$npm_config_jsfilepost -- ./heatmaps/templates/$npm_config_jsfilepre",
     "parse-jsx": "npx babel ./heatmaps/templates/$npm_config_jsfilepre --out-dir ./heatmaps/templates --presets react-app/prod"
