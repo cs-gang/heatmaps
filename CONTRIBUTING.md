@@ -18,8 +18,6 @@ The css files are compiled using Sass. When you have finished writing in the `ma
 Alternatively, if you prefer to see the changes as you are writing to the file, you can run `npm run css` to automatically compile the `main.sass` file whenever you make changes as long as the process is running in the terminal.
 
 #### Javascript
-This project uses ReactJs. Before deployment, make sure to compile the `.js` files using `npm run parse-jsx --jsfilepre=JSfilename.js`, remove the necessary scripts from the `index.html` file and remove the `type="text/babel"` attributes from the script tags.
-
 When you want to deploy the app, minify the files using `npm run minify-js --jsfilepre=JSfilename.js --jsfilepre=JSfilename.min.js`. This will create a new `.js` file, so don't forget to correct your html files
 
 Minification can help load your website several times faster, so make sure to do it before deployment.
