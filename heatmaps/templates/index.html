@@ -1,9 +1,19 @@
-<html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="../static/css/main.css"/>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  </head>
-  <body>
+<head>
+  <link rel="stylesheet" type="text/css" href="../static/css/main.css"/>
+  <!--Remove this line and parse JSX with the JSX preprocessor when ready to deploy
+  This line helps with development only-->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
 
-  </body>
+  <div id="root"></div>
+
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <!-- Load React Components -->
+  <!-- Remove the type attribute before deployment -->
+  <script type="text/babel" src="index.js"></script>
+</body>
 </html>

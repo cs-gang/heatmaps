@@ -136,3 +136,6 @@ mongo-volume
 
 # Node stuff
 /node_modules
+
+# main css file, no need to push during development
+main.css
