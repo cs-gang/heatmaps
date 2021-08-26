@@ -13,9 +13,11 @@ Run `npm install` to install the development dependencies.
 ### Working with Javascript and CSS files
 
 #### CSS
-The css files are compiled using Sass. When you have finished writing in the `main.sass` file, run `npm run css-build` to compile it into a css file in the same directory.
+The css files are compiled using tailwindcss and the main_config.css file. When you have finished editing the `main_config.css` file, run `npm run css-build` to compile it into a css file in the same directory.
 
-Alternatively, if you prefer to see the changes as you are writing to the file, you can run `npm run css` to automatically compile the `main.sass` file whenever you make changes as long as the process is running in the terminal.
+Alternatively, if you prefer to see the changes as you are writing to the file, you can run `npm run css` to automatically compile the `main_config.css` file whenever you make changes as long as the process is running in the terminal.
+
+Before deploying, make sure to run npm run `css-build-prod`. This will make sure all unused css is removed and that the css file is in its most efficient state.
 
 #### Javascript
 This project uses ReactJs. Before deployment, make sure to compile the `.js` files using `npm run parse-jsx --jsfilepre=JSfilename.js`, remove the necessary scripts from the `index.html` file and remove the `type="text/babel"` attributes from the script tags.
