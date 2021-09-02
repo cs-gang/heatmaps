@@ -1,5 +1,5 @@
 """Module containing all API interaction, data collection and normalization methods."""
-from typing import Mapping, Optional, Type
+from typing import Mapping, Type
 
 from sanic import Sanic
 from pydantic import BaseModel
@@ -20,7 +20,7 @@ async def collect_all_data(app: Sanic) -> None:
         await Client(app).collect_data()
 
 
-async def retrieve_client_data(app: Sanic, client_name: str) -> Optional[BaseModel]:
+async def retrieve_client_data(app: Sanic, client_name: str) -> BaseModel:
     """
     Entrypoint function to retrieve stored heatmap data.
 

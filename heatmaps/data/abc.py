@@ -63,7 +63,7 @@ class AbstractAPIClient(ABC):
         pass
 
     @abstractmethod
-    async def retrieve_data(self, projection: Optional[Mapping] = None) -> BaseModel:
+    async def retrieve_data(self, projection: Optional[Mapping[Any, Any]] = None) -> BaseModel:
         """
         Function to retrieve stored data from the database.
         This function should retrieve the latest document for the corresponding API

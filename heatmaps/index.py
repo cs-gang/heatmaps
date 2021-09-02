@@ -1,13 +1,11 @@
 """Index page route handling."""
-import json as js
-
 from sanic.request import Request
-from sanic.response import html, json, HTTPResponse
+from sanic.response import html, HTTPResponse
 
 from heatmaps.data import retrieve_client_data
 from heatmaps.server import app
 
-# from heatmaps.utils import render_page
+from heatmaps.utils import render_page
 
 
 @app.get("/")
@@ -20,19 +18,11 @@ async def index(request: Request) -> HTTPResponse:
     )  # if the key doesn't exist, it means the user just got to the page
 
     if not topic:  # TODO: change this
-        return json(
-            {
-                "hi bro": "you didn't specify an API bro",
-                "try:": "domain.com/?heatmap=covid",
-            }
-        )
+        output = await render_page(app.ctx.env, file="index.html")
+        return html(output)
 
     heatmap_data = (await retrieve_client_data(app, topic)).dict()
     heatmap_data.pop("time")
 
-    # output = await render_page(app.ctx.env, file="index.html", heatmap=topic)
-    # return html(output)
-
-    # THIS IS TEST CODE
-    response_string = f"<html><body>{js.dumps(heatmap_data, indent=4)}</body></html>"
-    return html(response_string)
+    output = await render_page(app.ctx.env, file="index.html", heatmap=topic)
+    return html(output)
