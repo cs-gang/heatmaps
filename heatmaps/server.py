@@ -18,6 +18,8 @@ load_dotenv(find_dotenv())
 
 app = Sanic("heatmaps")
 
+app.static("/static", "./heatmaps/static")
+
 # initializing jinja2 templates
 app.ctx.env = Environment(
     loader=PackageLoader("heatmaps", "templates"),
