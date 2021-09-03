@@ -1,8 +1,12 @@
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  purge: ['./heatmaps/static/js/*.{js,jsx,ts,tsx}', './heatmaps/templates/*.html'],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'orange-red': '#F53500'
+      }
+    },
   },
   variants: {
     extend: {},
